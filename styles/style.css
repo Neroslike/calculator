@@ -1,0 +1,65 @@
+body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.calc-container {
+    display: flex;
+    flex-direction: column;
+
+}
+.buttons-container {
+    /* border: solid black; */
+    display: flex;
+}
+
+.numbers{
+    width: 30%;
+    flex: auto;
+}
+
+.operator-container{
+    /* border: steelblue solid; */
+    display: flex;
+    width: 100%;
+    height: 40px;
+}
+
+.op-button{
+    flex: auto;
+}
+
+.num-container{
+    /*border: springgreen solid;*/
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+}
+
+.calc-right{
+    display: flex;
+}
+
+#equal {
+    flex: 1;
+    width: 40px;
+    /* border: solid; */
+}
+
+#display{
+    display: flex;
+    flex-direction: row-reverse;
+    border: 1px solid black;
+    margin: 0 2px;
+    font-size: 24px;
+    height: 24px;
+    resize: none;
+    overflow: hidden;
+}
+
+button {
+    margin: 2px;
+    font-size: large;
+}
