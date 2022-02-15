@@ -51,7 +51,19 @@ eqlButton.addEventListener('click', () =>{
     right = display.value
     //Do the math and populate the display with the result
     display.textContent = doMath(op, left, right)
+    //Update the left variable for future operations with this value
+    left = display.value
+    display2.textContent += ` ${right} =`
 })
+
+optButton.forEach(button => {
+    button.addEventListener('click', (e) => {
+        left = display.value
+        op = e.target.textContent
+        display2.textContent = `${left} ${e.target.textContent}`
+        display.textContent = ''
+    })
+});
 //Event listeners
 
 
@@ -64,16 +76,6 @@ function createNumberButtons() {
         numContainer.appendChild(divNumber)
     }
 }
-
-optButton.forEach(button => {
-    button.addEventListener('click', (e) => {
-        left = displayValue
-        op = e.target.textContent
-        display2.textContent = `${left} ${e.target.textContent}`
-        display.textContent = ''
-    })
-});
-
 
 numButtons.forEach(button => {
     button.addEventListener('click', (e) => display.textContent += e.target.textContent)
