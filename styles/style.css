@@ -16,6 +16,7 @@ body {
 .numbers{
     width: 30%;
     flex: auto;
+    font-size: 24px;
 }
 
 .operator-container{
@@ -48,18 +49,26 @@ body {
     /* border: solid; */
 }
 
-#display{
-    display: flex;
-    flex-direction: row-reverse;
+.displayst{
     border: 1px solid black;
     margin: 0 2px;
     font-size: 24px;
     height: 24px;
     resize: none;
     overflow: hidden;
+    flex: 1;
 }
 
 button {
     margin: 2px;
     font-size: large;
+}
+
+.display {
+    display: flex;
+}
+
+#remove {
+    margin: 0;
+    padding-bottom: 0;
 }
