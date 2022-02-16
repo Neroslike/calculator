@@ -25,10 +25,11 @@ let display2 = document.querySelector('#display2')
 let optButton = document.querySelectorAll('.op-button')
 let eqlButton = document.querySelector('#equal')
 let displayValue = display.value
+let calculated = false
 let result
 let left = 0
 let right = 0
-let op = ''
+let op = null
 createNumberButtons()
 let numButtons = document.querySelectorAll('.numbers')
 let clearBtn = document.querySelector('#clear')
@@ -41,29 +42,69 @@ function doMath(a, b, c) {
     c = parseInt(c)
     let result = operator(a, b, c)
     left = result
+    calculated = true
     return result
 }
 //Functions
 
 //Event listeners
-eqlButton.addEventListener('click', () =>{
-    //Assign current value of the display to a variable
-    right = display.value
-    //Do the math and populate the display with the result
-    display.textContent = doMath(op, left, right)
-    //Update the left variable for future operations with this value
-    left = display.value
-    display2.textContent += ` ${right} =`
-})
 
+//Equal button
+eqlButton.addEventListener('click', () =>{
+    if(calculated === false){
+        //Assign current value of the display to a variable
+        if(display.value !== ''){
+            right = display.value
+        }
+        //Do the math and populate the display with the result
+        display.textContent = doMath(op, left, right)
+        //Update the left variable for future operations with this value
+        left = display.value
+        if(display2.textContent !== ''){
+            display2.textContent += ` ${right} =`
+        }
+    }    
+})
+//Equal button
+
+//Operations buttons
 optButton.forEach(button => {
     button.addEventListener('click', (e) => {
-        left = display.value
+        if(left != '0' && right != '0'){
+            if(calculated === false){
+                display.textContent = doMath(op, left, right)
+            }
+        }
         op = e.target.textContent
         display2.textContent = `${left} ${e.target.textContent}`
         display.textContent = ''
     })
 });
+//Operations buttons
+
+//Clear button
+clearBtn.addEventListener('click', () => {
+    op = null
+    left = 0
+    right = 0
+    display.textContent = ''
+    display2.textContent = ''
+})
+//Clear button
+
+removeBtn.addEventListener('click', () => {
+    display.textContent = display.textContent.slice(0, -1)
+    displayValue = display.textContent
+    if(display2.textContent !== ''){
+        right = display.textContent
+    }else{
+        left = display.textContent
+    }
+    if(right === ''){
+        right = 0
+    }
+})
+
 //Event listeners
 
 
@@ -78,15 +119,16 @@ function createNumberButtons() {
 }
 
 numButtons.forEach(button => {
-    button.addEventListener('click', (e) => display.textContent += e.target.textContent)
-    button.addEventListener('click', () => displayValue = display.value)
+    button.addEventListener('click', (e) => {
+        if(calculated == true){
+            display.textContent = ''
+            calculated = false
+        }
+        display.textContent += e.target.textContent
+        if(display2.textContent !== ''){
+            right = display.textContent
+        }else{
+            left = display.textContent
+        }
+    })
 });
-
-clearBtn.addEventListener('click', () => {
-    display.textContent = ''
-    display2.textContent = ''
-})
-removeBtn.addEventListener('click', () => {
-    display.textContent = display.textContent.slice(0, -1)
-    displayValue = display.textContent
-})
