@@ -4,8 +4,8 @@ let subtract = (a, b) => a - b
 let multiply = (a, b) => a * b
 let divide = (a, b) => a/b
 let operator = (op, a, b) =>{
-    a = parseInt(a)
-    b = parseInt(b)
+    a = parseFloat(a)
+    b = parseFloat(b)
     if(op === '+'){
         return add(a, b)
     } else if (op === '-'){
@@ -38,9 +38,10 @@ let removeBtn = document.querySelector('#remove')
 
 //Functions
 function doMath(a, b, c) {
-    b = parseInt(b)
-    c = parseInt(c)
-    let result = operator(a, b, c)
+    b = parseFloat(b)
+    c = parseFloat(c)
+    result = String(operator(a, b, c).toFixed(2))
+    result = result.replace('.00', '')
     left = result
     calculated = true
     return result
@@ -51,6 +52,13 @@ function doMath(a, b, c) {
 
 //Equal button
 eqlButton.addEventListener('click', () =>{
+    if(right == '0' && op == '/'){
+        left = 0
+        right = 0
+        calculated = true
+        display2.textContent = ''
+        return display.textContent = 'Error'
+    }
     if(calculated === false){
         //Assign current value of the display to a variable
         if(display.value !== ''){
@@ -105,19 +113,6 @@ removeBtn.addEventListener('click', () => {
     }
 })
 
-//Event listeners
-
-
-function createNumberButtons() {
-    for(let i = 9; i >= 0; i--){
-        let divNumber = document.createElement('button')
-        divNumber.textContent = i
-        divNumber.classList.add('numbers')
-        divNumber.value = i
-        numContainer.appendChild(divNumber)
-    }
-}
-
 numButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         if(calculated == true){
@@ -132,3 +127,16 @@ numButtons.forEach(button => {
         }
     })
 });
+
+//Event listeners
+
+
+function createNumberButtons() {
+    for(let i = 9; i >= 0; i--){
+        let divNumber = document.createElement('button')
+        divNumber.textContent = i
+        divNumber.classList.add('numbers')
+        divNumber.value = i
+        numContainer.appendChild(divNumber)
+    }
+}
