@@ -139,4 +139,9 @@ function createNumberButtons() {
         divNumber.value = i
         numContainer.appendChild(divNumber)
     }
+    let decimalBtn = document.createElement('button')
+    decimalBtn.textContent = '.'
+    decimalBtn.classList.add('numbers')
+    decimalBtn.value = '.'
+    numContainer.appendChild(decimalBtn)
 }
