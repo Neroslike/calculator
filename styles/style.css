@@ -31,6 +31,14 @@ body {
 
 .op-button{
     flex: auto;
+    background-color: #FF9500;
+    color: black;
+}
+
+.rmvBtns {
+    background-color: #dd2d00;
+    color: black;
+    flex: 1;
 }
 
 .num-container{
@@ -86,5 +94,10 @@ button {
     width: 30%;
     flex: auto;
     font-size: 24px;
+}
+
+.redBtns {
+    display: flex;
+    flex-direction: row-reverse;
 }
 

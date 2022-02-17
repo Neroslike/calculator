@@ -22,6 +22,7 @@ let operator = (op, a, b) =>{
 
 //Selectors
 let numContainer = document.querySelector('.num-container')
+let calcContainer = document.querySelector('.calc-container')
 let display = document.querySelector('#display')
 let display2 = document.querySelector('#display2')
 let optButton = document.querySelectorAll('.op-button')
@@ -49,12 +50,8 @@ function doMath(a, b, c) {
     calculated = true
     return result
 }
-//Functions
 
-//Event listeners
-
-//Equal button
-eqlButton.addEventListener('click', () =>{
+function eql() {
     if(op == null){
         display2.textContent = ''
     }
@@ -78,36 +75,29 @@ eqlButton.addEventListener('click', () =>{
             display2.textContent += ` ${right} =`
         }
         op = null
-    }    
-})
-//Equal button
+    }   
+}
 
-//Operations buttons
-optButton.forEach(button => {
-    button.addEventListener('click', (e) => {
-        if(left != '0' && right != '0'){
-            if(calculated === false){
-                display.textContent = doMath(op, left, right)
-            }
+function opt(e) {
+    if(left != '0' && right != '0'){
+        if(calculated === false){
+            display.textContent = doMath(op, left, right)
         }
-        op = e.target.textContent
-        display2.textContent = `${left} ${e.target.textContent}`
-        display.textContent = ''
-    })
-});
-//Operations buttons
+    }
+    op = e.target.textContent
+    display2.textContent = `${left} ${e.target.textContent}`
+    display.textContent = ''
+}
 
-//Clear button
-clearBtn.addEventListener('click', () => {
+function clear() {
     op = null
     left = 0
     right = 0
     display.textContent = ''
     display2.textContent = ''
-})
-//Clear button
+}
 
-removeBtn.addEventListener('click', () => {
+function removeb() {
     display.textContent = display.textContent.slice(0, -1)
     displayValue = display.textContent
     if(display2.textContent !== ''){
@@ -118,25 +108,23 @@ removeBtn.addEventListener('click', () => {
     if(right === ''){
         right = 0
     }
-})
+}
 
-numButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-        if(calculated == true){
-            display.textContent = ''
-            right = 0
-            calculated = false
-        }
-        display.textContent += e.target.textContent
-        if(display2.textContent !== ''){
-            right = display.textContent
-        }else{
-            left = display.textContent
-        }
-    })
-});
+function nums(e) {
+    if(calculated == true){
+        display.textContent = ''
+        right = 0
+        calculated = false
+    }
+    display.textContent += e.target.textContent
+    if(display2.textContent !== ''){
+        right = display.textContent
+    }else{
+        left = display.textContent
+    }
+}
 
-decimalBtn.addEventListener('click', (e) =>{
+function decimal(e) {
     if(!display.textContent.includes('.')){
         if(calculated == true){
             display.textContent = '0'
@@ -152,6 +140,43 @@ decimalBtn.addEventListener('click', (e) =>{
             left = display.textContent
         }
     }
+}
+//Functions
+
+//Event listeners
+
+//Equal button
+eqlButton.addEventListener('click', () =>{
+    eql()
+})
+//Equal button
+
+//Operations buttons
+optButton.forEach(button => {
+    button.addEventListener('click', (e) => {
+        opt(e)
+    })
+});
+//Operations buttons
+
+//Clear button
+clearBtn.addEventListener('click', () => {
+    clear()
+})
+//Clear button
+
+removeBtn.addEventListener('click', () => {
+    removeb()
+})
+
+numButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        nums(e)
+    })
+});
+
+decimalBtn.addEventListener('click', (e) =>{
+    decimal(e)
 })
 
 //Event listeners
@@ -162,6 +187,7 @@ function createNumberButtons() {
         let divNumber = document.createElement('button')
         divNumber.textContent = i
         divNumber.classList.add('numbers')
+        divNumber.id = `${i}`
         divNumber.value = i
         numContainer.appendChild(divNumber)
     }
@@ -169,5 +195,22 @@ function createNumberButtons() {
     decimalBtn.textContent = '.'
     decimalBtn.classList.add('decimal')
     decimalBtn.value = '.'
+    decimalBtn.id = '.'
     numContainer.appendChild(decimalBtn)
 }
+
+document.body.addEventListener('keydown', (e) => {
+    switch(e.key){
+        case 'Backspace':
+            removeb()
+            break;
+        case 'Enter':
+            eql()
+            break;
+        case e.key:
+            document.getElementById(e.key).click()
+            break
+        default:
+            break;
+    }
+})
