@@ -14,7 +14,9 @@ let operator = (op, a, b) =>{
         return multiply(a, b)
     } else if (op === '/'){
         return divide(a, b)
-    } 
+    } else if(op === null){
+        return b
+    }
 }
 //operator functions
 
@@ -25,12 +27,13 @@ let display2 = document.querySelector('#display2')
 let optButton = document.querySelectorAll('.op-button')
 let eqlButton = document.querySelector('#equal')
 let displayValue = display.value
-let calculated = false
+let calculated = true
 let result
 let left = 0
 let right = 0
 let op = null
 createNumberButtons()
+let decimalBtn = document.querySelector('.decimal')
 let numButtons = document.querySelectorAll('.numbers')
 let clearBtn = document.querySelector('#clear')
 let removeBtn = document.querySelector('#remove')
@@ -52,7 +55,10 @@ function doMath(a, b, c) {
 
 //Equal button
 eqlButton.addEventListener('click', () =>{
-    if(right == '0' && op == '/'){
+    if(op == null){
+        display2.textContent = ''
+    }
+    if(parseInt(right) <= 0 && op == '/'){
         left = 0
         right = 0
         calculated = true
@@ -71,6 +77,7 @@ eqlButton.addEventListener('click', () =>{
         if(display2.textContent !== ''){
             display2.textContent += ` ${right} =`
         }
+        op = null
     }    
 })
 //Equal button
@@ -117,6 +124,7 @@ numButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         if(calculated == true){
             display.textContent = ''
+            right = 0
             calculated = false
         }
         display.textContent += e.target.textContent
@@ -127,6 +135,24 @@ numButtons.forEach(button => {
         }
     })
 });
+
+decimalBtn.addEventListener('click', (e) =>{
+    if(!display.textContent.includes('.')){
+        if(calculated == true){
+            display.textContent = '0'
+            calculated = false
+        } else if(calculated == false && display.textContent == ''){
+            display.textContent = '0'
+            calculated = false
+        }
+        display.textContent += e.target.textContent
+        if(display2.textContent !== ''){
+            right = display.textContent
+        }else{
+            left = display.textContent
+        }
+    }
+})
 
 //Event listeners
 
@@ -141,7 +167,7 @@ function createNumberButtons() {
     }
     let decimalBtn = document.createElement('button')
     decimalBtn.textContent = '.'
-    decimalBtn.classList.add('numbers')
+    decimalBtn.classList.add('decimal')
     decimalBtn.value = '.'
     numContainer.appendChild(decimalBtn)
 }

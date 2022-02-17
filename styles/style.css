@@ -2,11 +2,14 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
+    background-color: #FEF8DD;
 }
 .calc-container {
     display: flex;
     flex-direction: column;
-
+    border: solid;
+    padding: 30px;
+    background-color: #36454F;
 }
 .buttons-container {
     /* border: solid black; */
@@ -50,25 +53,38 @@ body {
 }
 
 .displayst{
-    border: 1px solid black;
-    margin: 0 2px;
+    border: none;
+    margin: 0px;
     font-size: 24px;
     height: 24px;
     resize: none;
     overflow: hidden;
     flex: 1;
+    outline: none;
+    background-color: #A8C64E;
 }
 
 button {
     margin: 2px;
     font-size: large;
+    background-color: #505050;
+    border: black solid;
+    color: white;
 }
 
 .display {
     display: flex;
+    flex-direction: column;
+    border: solid 1px black;
 }
 
 #remove {
-    margin: 0;
-    padding-bottom: 0;
+    padding: 0;
 }
+
+.decimal {
+    width: 30%;
+    flex: auto;
+    font-size: 24px;
+}
+
