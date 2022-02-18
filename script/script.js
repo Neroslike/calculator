@@ -214,3 +214,8 @@ document.body.addEventListener('keydown', (e) => {
             break;
     }
 })
+
+let buttons = document.querySelectorAll('button')
+buttons.forEach(button => {
+    button.setAttribute('onclick', 'this.blur()')
+});
